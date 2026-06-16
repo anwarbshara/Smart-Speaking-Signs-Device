@@ -1,7 +1,7 @@
 # 🧤 Smart Speaking Signs Device
 
 <p align="center">
-  <img src="Images/Project_Image.jpeg" width="400"/>
+  <img src="Images/SSSD_Pic.png" width="450"/>
 </p>
 
 <h3 align="center">
@@ -225,7 +225,7 @@ The project gained attention for improving communication accessibility for deaf 
 ## 🎥 Demo Video
 
 <p align="center">
-  <img src="Images/Project_Image_2.png" width="500"/>
+  <img src="Images/demo_pic.png" width="450"/>
 </p>
 
 <p align="center">
