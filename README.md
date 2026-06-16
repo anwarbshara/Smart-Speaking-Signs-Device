@@ -7,6 +7,12 @@
 <h3 align="center">
 Real-Time Sign Language to Speech & Text Conversion
 </h3>
+<p align="center">
+<img src="https://img.shields.io/badge/ESP32-Embedded-red?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/Flutter-Mobile_App-blue?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/BLE-Wireless-green?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/Firebase-Database-orange?style=for-the-badge"/>
+</p>
 
 ---
 
@@ -48,14 +54,14 @@ The project was developed with a focus on:
 
 ## ⚙️ Technologies Used
 
-### 🔌 Hardware
+### 🔌 Hardware :
 
 * ESP32
 * Flex Sensors (x5)
 * MPU6050 Motion Sensor
 * Bluetooth Low Energy (BLE)
 
-### 💻 Software
+### 💻 Software :
 
 * Flutter
 * Firebase
@@ -65,7 +71,7 @@ The project was developed with a focus on:
 
 ---
 
-## 🔧 Hardware & Software Components
+## 🔧 Hardware & Software Components :
 
 | Component    | Purpose                                  |
 | ------------ | ---------------------------------------- |
@@ -222,16 +228,17 @@ The project gained attention for improving communication accessibility for deaf 
 
 ---
 
-## 🎥 Demo Video
+🎥 Demo Video
 
+<p align="center">
+Watch the Smart Speaking Signs Device demonstration video
+</p>
+<p align="center">
+Click the button below to watch the real-time project demonstration
+</p>
 <p align="center">
   <img src="Images/demo_pic.png" width="450"/>
 </p>
-
-<p align="center">
-  Watch the Smart Speaking Signs Device demonstration video:
-</p>
-
 <p align="center">
   <a href="https://drive.google.com/file/d/1fMt22c8ajauHyEJ4nHGmc-IGWgudZfpw/view">
     <img src="https://img.shields.io/badge/▶%20Watch%20Demo%20Video-blue?style=for-the-badge&logo=google-drive"/>
@@ -239,7 +246,6 @@ The project gained attention for improving communication accessibility for deaf 
 </p>
 
 ---
-
 
 ## ⚠️ Challenges Faced
 
@@ -251,6 +257,14 @@ During development, several challenges were encountered:
 * Hardware integration and optimization
 
 These challenges were solved through testing, calibration, and iterative improvements.
+
+---
+
+## 🎯 Project Objectives
+* Improve communication accessibility for deaf and mute individuals
+* Enable real-time sign-to-speech translation
+* Support healthcare communication scenarios
+* Provide an affordable assistive technology solution
 
 ---
 
@@ -283,22 +297,25 @@ Smart-Speaking-Signs-Device
 
 ---
 
-## 👩‍💻 Author
+👩‍💻 Author
 
 <p align="center">
-
-### **Anwar Bshara**
-
-**Computer Systems Engineer**
-
-📧Email:
-anwarbshara2002@gmail.com
-
-💼 LinkedIn:
-https://www.linkedin.com/in/anwaar-bshara
-
-💻 GitHub:
-https://github.com/anwarbshara
-
+<b>Anwar Bshara</b><br>
+Computer Systems Engineer
 </p>
-
+<p align="center">
+📧 <b>Email:</b><br>
+anwarbshara2002@gmail.com
+</p>
+<p align="center">
+💼 <b>LinkedIn:</b><br>
+<a href="https://www.linkedin.com/in/anwaar-bshara">
+LinkedIn Profile
+</a>
+</p>
+<p align="center">
+💻 <b>GitHub:</b><br>
+<a href="https://github.com/anwarbshara">
+GitHub Profile
+</a>
+</p>
