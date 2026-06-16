@@ -221,7 +221,7 @@ The project gained attention for improving communication accessibility for deaf 
 <h3 align="center">📌 Project Poster</h3>
 
 <p align="center">
-  <img src="Poster/POSTER.png" width="600"/>
+  <img src="Poster/POSTER.png" width="400"/>
 </p>
 
 <p align="center">
