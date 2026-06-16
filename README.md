@@ -242,7 +242,7 @@ Watch the Smart Speaking Signs Device demonstration video
   <img src="Images/demo_pic.png" width="400"/>
 </p>
 <p align="center">
-**Click the button below to watch the real-time project demonstration :**
+Click the button below to watch the real-time project demonstration :
 </p>
 <p align="center">
   <a href="https://drive.google.com/file/d/1fMt22c8ajauHyEJ4nHGmc-IGWgudZfpw/view">
