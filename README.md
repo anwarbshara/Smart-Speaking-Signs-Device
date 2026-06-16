@@ -184,9 +184,9 @@ The project gained attention for improving communication accessibility for deaf 
 <h3 align="center">🧤 Smart Glove</h3>
 
 <p align="center">
-  <img src="Images/Glove.png" width="250"/>
-  <img src="Images/Project_Image.jpeg" width="250"/>
-  <img src="Images/Project_Image_2.png" width="250"/>
+  <img src="Images/Glove.png" height="300"/>
+  <img src="Images/Project_Image.jpeg" height="300"/>
+  <img src="Images/Project_Image_2.png" height="300"/>
 </p>
 
 ---
@@ -194,8 +194,8 @@ The project gained attention for improving communication accessibility for deaf 
 <h3 align="center">📱 Mobile Application</h3>
 
 <p align="center">
-  <img src="Images/Mobile_App_1.png" width="230"/>
-  <img src="Images/Mobile_App_2.png" width="230"/>
+  <img src="Images/Mobile_App_1.png" width="280"/>
+  <img src="Images/Mobile_App_2.png" width="280"/>
 </p>
 
 ---
@@ -203,7 +203,7 @@ The project gained attention for improving communication accessibility for deaf 
 <h3 align="center">🔧 Hardware Components</h3>
 
 <p align="center">
-  <img src="Images/Hardware_Components.png" width="500"/>
+  <img src="Images/Hardware_Components.png" width="600"/>
 </p>
 
 ---
@@ -211,11 +211,13 @@ The project gained attention for improving communication accessibility for deaf 
 <h3 align="center">📌 Project Poster</h3>
 
 <p align="center">
-  <img src="Poster/POSTER.png" width="550"/>
+  <img src="Poster/POSTER.png" width="600"/>
 </p>
 
 <p align="center">
-  📄 <a href="Poster/POSTER_SSSD.pdf">Download Project Poster</a>
+  📄 <a href="Poster/POSTER_SSSD.pdf">
+  Download Project Poster
+  </a>
 </p>
 
 ---
@@ -223,12 +225,21 @@ The project gained attention for improving communication accessibility for deaf 
 ## 🎥 Demo Video
 
 <p align="center">
+  <img src="Images/Project_Image.jpeg" width="600"/>
+</p>
+
+<p align="center">
+  Watch the Smart Speaking Signs Device demonstration video:
+</p>
+
+<p align="center">
   <a href="https://drive.google.com/file/d/1fMt22c8ajauHyEJ4nHGmc-IGWgudZfpw/view">
-    <img src="https://img.shields.io/badge/Watch-Demo-blue?style=for-the-badge"/>
+    <img src="https://img.shields.io/badge/▶%20Watch%20Demo%20Video-blue?style=for-the-badge&logo=google-drive"/>
   </a>
 </p>
 
 ---
+
 
 ## ⚠️ Challenges Faced
 
@@ -274,10 +285,13 @@ Smart-Speaking-Signs-Device
 
 ## 👩‍💻 Author
 
-**Anwar Bshara**
-Computer Systems Engineer
+<p align="center">
 
-📧 Email: [anwarbshara2002@gmail.com](mailto:anwarbshara2002@gmail.com)
+### **Anwar Bshara**
+
+**Computer Systems Engineer**
+
+📧 [anwarbshara2002@gmail.com](mailto:anwarbshara2002@gmail.com)
 
 💼 LinkedIn:
 https://www.linkedin.com/in/anwaar-bshara
@@ -285,10 +299,5 @@ https://www.linkedin.com/in/anwaar-bshara
 💻 GitHub:
 https://github.com/anwarbshara
 
----
+</p>
 
-<div align="center">
-
-⭐ If you found this project interesting, consider giving it a star on GitHub!
-
-</div>
