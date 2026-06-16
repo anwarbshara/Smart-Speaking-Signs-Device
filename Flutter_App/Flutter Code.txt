@@ -1,0 +1,693 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'welcome_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'localization_extension.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();z
+  await Firebase.initializeApp();
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: WelcomeScreen(),
+      routes: {
+        '/home': (context) => SmartGloveApp(),
+      },
+    ),
+  );
+
+}
+
+class SmartGloveApp extends StatefulWidget {
+  List<String> gestureHistory = [];
+
+  @override
+  State<SmartGloveApp> createState() => _SmartGloveAppState();
+}
+
+class _SmartGloveAppState extends State<SmartGloveApp> {
+  Future<bool> requestBluetoothPermissions() async {
+    final status = await [
+      Permission.bluetooth,
+      Permission.bluetoothScan,
+      Permission.bluetoothConnect,
+      Permission.bluetoothAdvertise,
+      Permission.locationWhenInUse,
+    ].request();
+
+    return status.values.every((perm) => perm.isGranted);
+  }
+
+  late BuildContext globalContext;
+  bool isDarkMode = false;
+  bool isSoundOn = true;
+  Locale _locale = Locale('en');
+  String btStatus = 'Checking...';
+  String currentSentence = '';
+  List<String> gestureHistory = [];
+
+  final FlutterTts tts = FlutterTts();
+  final dbRef = FirebaseDatabase.instance.ref("gestures");
+
+  @override
+  void initState() {
+    super.initState();
+    listenToBluetoothStatus();
+    connectToESP32();
+  }
+
+  void clearGestureHistory() {
+    setState(() {
+      gestureHistory.clear();
+      currentSentence = '';
+    });
+  }
+
+  void deleteGestureAt(int index) {
+    setState(() {
+      gestureHistory.removeAt(index);
+      currentSentence = gestureHistory.join(' ');
+    });
+  }
+
+
+  void clearCurrentSentence() {
+    setState(() {
+      currentSentence = '';
+    });
+  }
+
+  Future<void> requestPermissions() async {
+    await [
+      Permission.bluetoothScan,
+      Permission.bluetoothConnect,
+      Permission.locationWhenInUse,
+    ].request();
+  }
+
+  void listenToBluetoothStatus() {
+    FlutterBluePlus.adapterState.listen((state) {
+      String statusKey;
+      switch (state) {
+        case BluetoothAdapterState.on:
+          statusKey = 'connected';
+          break;
+        case BluetoothAdapterState.off:
+          statusKey = 'disconnected';
+          break;
+        case BluetoothAdapterState.unavailable:
+          statusKey = 'unavailable';
+          break;
+        case BluetoothAdapterState.unauthorized:
+          statusKey = 'unauthorized';
+          break;
+        case BluetoothAdapterState.turningOn:
+          statusKey = 'turning_on';
+          break;
+        case BluetoothAdapterState.turningOff:
+          statusKey = 'turning_off';
+          break;
+        default:
+          statusKey = 'unknown';
+      }
+
+      if (mounted) {
+        setState(() {
+          btStatus = statusKey; // المفتاح وليس الترجمة نفسها
+        });
+      }
+    });
+  }
+
+
+  void connectToESP32() async {
+    final granted = await requestBluetoothPermissions();
+    if (!granted) {
+      print("🚫 الصلاحيات غير مفعّلة! لن يتم بدء الفحص.");
+      return;
+    }
+    final serviceUuid = Guid("4fafc201-1fb5-459e-8fcc-c5c9c331914b");
+    final characteristicUuid = Guid("beb5483e-36e1-4688-b7f5-ea07361b26a8");
+    FlutterBluePlus.startScan(timeout: Duration(seconds: 5));
+    FlutterBluePlus.scanResults.listen((results) async {
+      for (var result in results) {
+        print(
+            "📡 Found device: ${result.device.name} | id: ${result.device.id}");
+        if (result.device.id.toString().trim() == "A0:B7:65:28:35:5A" ||
+            result.device.name == "SSSD-ESP32") {
+          await FlutterBluePlus.stopScan();
+          print("✅ Connecting to SSSD-ESP32...");
+
+          try {
+            await result.device.connect(autoConnect: false);
+          } catch (e) {
+            print("⚠️ Connection error: $e");
+            return;
+          }
+
+          final services = await result.device.discoverServices();
+          print("🔍 Services discovered: ${services.length}");
+
+          for (var service in services) {
+            if (service.uuid == serviceUuid) {
+              for (var characteristic in service.characteristics) {
+                if (characteristic.uuid == characteristicUuid &&
+                    characteristic.properties.notify) {
+                  print(
+                      "📡 Found notify characteristic: ${characteristic.uuid}");
+                  await characteristic.setNotifyValue(true);
+                  characteristic.onValueReceived.listen((value) {
+                    final code = String.fromCharCodes(value).trim();
+                    print("🛰️ Received from ESP32: $code");
+                    handleGestureCode(code);
+                  });
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  void handleGestureCode(String code) async {
+    final langCode = Localizations.localeOf(globalContext).languageCode;
+
+    if (code == "000000") {
+      final noMatchText = langCode == 'ar' ? "❌ لا يوجد تطابق" : "❌ No match found";
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(globalContext).showSnackBar(
+          SnackBar(
+            content: Text(noMatchText),
+            backgroundColor: Colors.redAccent,
+            duration: Duration(seconds: 2),
+          ),
+        );
+      });
+
+
+
+      return;
+    }
+    final snapshot = await dbRef.child(code).get();
+    if (snapshot.exists) {
+      final textKey = langCode == 'ar' ? 'text_ar' : 'text_en';
+      final text = snapshot
+          .child(textKey)
+          .value
+          .toString();
+
+      setState(() {
+        if (gestureHistory.isEmpty || gestureHistory.last != text) {
+          gestureHistory.add(text);
+          currentSentence = gestureHistory.join(' ');
+        }
+      });
+
+
+      /*if (isSoundOn) {
+        await tts.setLanguage(_locale.languageCode);
+        await tts.setSpeechRate(0.5);
+        await tts.speak(text);
+      }
+    }
+    else {
+      setState(() {
+        if (!currentSentence.endsWith("($code)")) {
+          setState(() {
+            currentSentence += (currentSentence.isEmpty ? '' : ' ') + "إشارة غير معروفة ($code)";
+          });
+        }
+      });
+    }*/
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      locale: _locale,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      debugShowCheckedModeBanner: false,
+      theme: isDarkMode
+          ? ThemeData.dark(useMaterial3: true)
+          : ThemeData.light(useMaterial3: true).copyWith(
+        scaffoldBackgroundColor: const Color(0xFFF2F7FA),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+        textTheme: ThemeData
+            .light()
+            .textTheme
+            .apply(fontFamily: 'Cairo'),
+      ),
+      home: Builder(
+        builder: (context) {
+          globalContext = context;
+          return HomePage(
+            isDarkMode: isDarkMode,
+            onToggleTheme: () => setState(() => isDarkMode = !isDarkMode),
+            isSoundOn: isSoundOn,
+            onToggleSound: () => setState(() => isSoundOn = !isSoundOn),
+            currentLocale: _locale,
+            onClearCurrentSentence: clearCurrentSentence,
+            onLanguageChange: (langCode) {
+              setState(() {
+                _locale = Locale(langCode);
+              });
+            },
+            btStatusKey: btStatus,
+
+            gestureHistory: gestureHistory,
+            onClearGestureHistory: clearGestureHistory,
+            currentSentence: currentSentence,
+            onDeleteGestureAt: deleteGestureAt,
+          );
+        },
+      ),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  final bool isDarkMode;
+  final VoidCallback onToggleTheme;
+  final bool isSoundOn;
+  final VoidCallback onToggleSound;
+  final Locale currentLocale;
+  final Function(String langCode) onLanguageChange;
+  final String btStatusKey;
+  final String currentSentence;
+  final List<String> gestureHistory;
+  final VoidCallback onClearGestureHistory;
+  final VoidCallback onClearCurrentSentence;
+  final Function(int) onDeleteGestureAt;
+
+
+  const HomePage({
+    required this.onDeleteGestureAt,
+    required this.isDarkMode,
+    required this.onToggleTheme,
+    required this.isSoundOn,
+    required this.onToggleSound,
+    required this.currentLocale,
+    required this.onLanguageChange,
+    required this.btStatusKey,
+    required this.currentSentence,
+    required this.gestureHistory,
+    required this.onClearGestureHistory,
+    required this.onClearCurrentSentence,
+  });
+
+  @override
+  @override
+  Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
+
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF2CA7A2),
+              Color(0xFFF2F7FA),
+            ],
+          ),
+        ),
+        child: Stack(
+          children: [
+            // محتوى الصفحة
+            Positioned.fill(
+              child: SafeArea(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 60),
+                      Image.asset('assets/images/logo.png', height: 150),
+                      SizedBox(height: 18),
+                      Text(
+                        AppLocalizations.of(context)!.welcome,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(height: 24),
+
+                      _customCard(
+                        icon: Icons.bluetooth,
+                        title: AppLocalizations.of(context)!.bluetooth_status,
+                        subtitle: AppLocalizations.of(context)!.get(btStatusKey),
+                      ),
+                      _customCard(
+                        icon: Icons.volume_up,
+                        title: AppLocalizations.of(context)!.detected_gesture,
+                        subtitle: currentSentence.isNotEmpty
+                            ? currentSentence
+                            : AppLocalizations.of(context)!.no_gesture,
+                      ),
+
+                      SizedBox(height: 30),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.teal,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                            ),
+                            icon: Icon(Icons.volume_up),
+                            label: Text(AppLocalizations.of(context)!.speak),
+                            onPressed: () async {
+                              if (currentSentence.trim().isNotEmpty) {
+                                final tts = FlutterTts();
+                                await tts.setLanguage(Localizations.localeOf(context).languageCode);
+                                await tts.setSpeechRate(0.5);
+                                await tts.speak(currentSentence);
+                              }
+                            },
+                          ),
+                          SizedBox(width: 16),
+                          ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: Colors.black87,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                            ),
+                            icon: Icon(Icons.clear),
+                              label: Text(AppLocalizations.of(context)!.clear),
+                            onPressed: () {
+                              onClearCurrentSentence();
+                            },
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 30),
+
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.teal.shade700,
+                          shape: StadiumBorder(),
+                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                        ),
+                        icon: Icon(Icons.history, color: Colors.white),
+                        label: Text(AppLocalizations.of(context)!.history, style: TextStyle(color: Colors.white)),
+                        onPressed: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => GestureHistoryScreen(
+                                history: gestureHistory,
+                                onDeleteGestureAt: onDeleteGestureAt, // ✅ استخدمه من البراميتر
+                              ),
+                            ),
+                          );
+                          onClearCurrentSentence(); // أو setState(() {});
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            // أيقونة الإعدادات
+            Positioned(
+              top: 40,
+              right: 20,
+              child: IconButton(
+                icon: Icon(Icons.settings, color: Colors.white, size: 28),
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                    ),
+                    builder: (context) {
+                      return Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(AppLocalizations.of(context)!.settings,
+                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                            Divider(height: 20),
+                            ListTile(
+                              leading: Icon(Icons.language),
+                              title: Text(AppLocalizations.of(context)!.change_language),
+                              trailing: DropdownButton<String>(
+                                value: currentLocale.languageCode,
+                                items: [
+                                  DropdownMenuItem(value: 'en', child: Text("English")),
+                                  DropdownMenuItem(value: 'ar', child: Text("العربية")),
+                                ],
+                                onChanged: (val) {
+                                  if (val != null) onLanguageChange(val);
+                                },
+                              ),
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.brightness_6),
+                              title: Text(AppLocalizations.of(context)!.theme_mode),
+                              trailing: Switch(
+                                value: isDarkMode,
+                                onChanged: (_) => onToggleTheme(),
+                              ),
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.volume_up),
+                              title: Text(AppLocalizations.of(context)!.sound_output),
+                              trailing: Switch(
+                                value: isSoundOn,
+                                onChanged: (_) => onToggleSound(),
+                              ),
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.delete_outline),
+                              title: Text(AppLocalizations.of(context)!.clear_gestures),
+                              onTap: () {
+                                Navigator.pop(context);
+                                onClearGestureHistory();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('✅ ${AppLocalizations.of(context)!.clear_gestures} completed successfully!'),
+                                    backgroundColor: Colors.teal,
+                                    duration: Duration(seconds: 2),
+                                  ),
+                                );
+                              },
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.info_outline),
+                              title: Text(AppLocalizations.of(context)!.about_app),
+                              onTap: () {
+                                Navigator.pop(context);
+                                showAboutDialog(
+                                  context: context,
+                                  applicationName: AppLocalizations.of(context)!.app_title,
+                                  applicationVersion: '1.0.0',
+                                  applicationIcon: Icon(Icons.handshake, size: 40, color: Colors.teal),
+                                  children: [
+                                    SizedBox(height: 10),
+                                    Text('🧤 ${AppLocalizations.of(context)!.app_title} helps people communicate using hand gestures converted into speech and text.'),
+                                  ],
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+
+
+  Widget _customCard({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+  }) {
+    return Container(
+      padding: EdgeInsets.all(16),
+      margin: EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.85),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 10,
+            offset: Offset(0, 4),
+          )
+        ],
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.teal, size: 28),
+          SizedBox(width: 12),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black87)),
+              SizedBox(height: 4),
+              Text(subtitle,
+                  style: TextStyle(fontSize: 16, color: Colors.black54)),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+}
+class GestureHistoryScreen extends StatefulWidget {
+  final List<String> history;
+  final Function(int) onDeleteGestureAt;
+
+  const GestureHistoryScreen({
+    Key? key,
+    required this.history,
+    required this.onDeleteGestureAt,
+  }) : super(key: key);
+
+  @override
+  State<GestureHistoryScreen> createState() => _GestureHistoryScreenState();
+}
+
+class _GestureHistoryScreenState extends State<GestureHistoryScreen> {
+  @override
+  Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context)!;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(tr.history_g),
+        backgroundColor: Colors.teal,
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFF2CA7A2), Color(0xFFF2F7FA)],
+          ),
+        ),
+        child: widget.history.isEmpty
+            ? Center(
+          child: Text(
+            tr.no_gesture_yet,
+            style: TextStyle(fontSize: 18, color: Colors.white),
+          ),
+        )
+            : ListView.builder(
+          padding: EdgeInsets.all(16),
+          itemCount: widget.history.length,
+          itemBuilder: (context, index) {
+            final isNoMatch = widget.history[index].contains("❌");
+            final gesture = widget.history[index];
+
+            return Dismissible(
+              key: Key(gesture + index.toString()),
+              direction: DismissDirection.endToStart,
+              background: Container(
+                padding: EdgeInsets.only(right: 20),
+                alignment: Alignment.centerRight,
+                color: Colors.redAccent,
+                child: Icon(Icons.delete, color: Colors.white),
+              ),
+              confirmDismiss: (_) async {
+                final result = await showDialog<bool>(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    title: Text(tr.clear_gestures),
+                    content: Text("${tr.history_g}:\n\"$gesture\"؟"),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        child: Text(AppLocalizations.of(context)!.cancel ?? 'Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(true),
+                        child: Text(tr.clear ?? 'Clear'),
+                      ),
+                    ],
+                  ),
+                );
+
+                return result == true;
+              },
+                onDismissed: (_) {
+                  widget.onDeleteGestureAt(index); // بدون setState هنا
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('✅ "$gesture" ${tr.clear_gestures}'),
+        
+                      backgroundColor: Colors.teal,
+                    ),
+                  );
+                },
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                elevation: 4,
+                margin: EdgeInsets.symmetric(vertical: 8),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: isNoMatch ? Colors.red : Colors.teal,
+                    child: Icon(
+                      isNoMatch ? Icons.block : Icons.handshake,
+                      color: Colors.white,
+                    ),
+                  ),
+                  title: Text(
+                    gesture,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: isNoMatch ? Colors.red : Colors.black,
+                    ),
+                  ),
+                  trailing: isNoMatch
+                      ? Icon(Icons.warning_amber_rounded, color: Colors.redAccent)
+                      : Icon(Icons.check_circle_outline, color: Colors.teal),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
