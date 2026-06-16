@@ -205,7 +205,7 @@ The project gained attention for improving communication accessibility for deaf 
 <p align="center">
   <img src="Images/Mobile_App_1.png" width="350"/>
   <img src="Images/Mobile_App_2.png" width="350"/>
-  <img src="Images/Mobile_App_3.png" width="100"/>
+  <img src="Images/Mobile_App_3.png" width="125"/>
   </p>
 
 ---
