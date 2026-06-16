@@ -10,8 +10,8 @@ Real-Time Sign Language to Speech & Text Conversion
 <p align="center">
 <img src="https://img.shields.io/badge/Embedded:-ESP32-red?style=for-the-badge"/>
 <img src="https://img.shields.io/badge/Mobile_App:-Flutter-blue?style=for-the-badge"/>
-<img src="https://img.shields.io/badge/Wireless:-BLE-green?style=for-the-badge"/>
-<img src="https://img.shields.io/badge/Database:-Firebase-orange?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/Wireless:-BLE-orange?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/Database:-Firebase-green?style=for-the-badge"/>
 </p>
 <p align="center">
 An intelligent wearable glove for translating sign language into real-time speech and text communication.
