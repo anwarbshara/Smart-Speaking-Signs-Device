@@ -234,14 +234,15 @@ The project gained attention for improving communication accessibility for deaf 
 
 ## 🎥 Demo Video
 
-<p align="center">
+<p>
 Watch the Smart Speaking Signs Device demonstration video
+</p>
+
+<p align="center">
+  <img src="Images/demo_pic.png" width="400"/>
 </p>
 <p align="center">
 Click the button below to watch the real-time project demonstration :
-</p>
-<p align="center">
-  <img src="Images/demo_pic.png" width="450"/>
 </p>
 <p align="center">
   <a href="https://drive.google.com/file/d/1fMt22c8ajauHyEJ4nHGmc-IGWgudZfpw/view">
