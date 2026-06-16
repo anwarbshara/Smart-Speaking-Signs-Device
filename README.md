@@ -225,7 +225,7 @@ The project gained attention for improving communication accessibility for deaf 
 ## 🎥 Demo Video
 
 <p align="center">
-  <img src="Images/Project_Image.jpeg" width="600"/>
+  <img src="Images/Project_Image_2.jpeg" width="400"/>
 </p>
 
 <p align="center">
@@ -291,7 +291,8 @@ Smart-Speaking-Signs-Device
 
 **Computer Systems Engineer**
 
-📧 [anwarbshara2002@gmail.com](mailto:anwarbshara2002@gmail.com)
+📧Email:
+anwarbshara2002@gmail.com
 
 💼 LinkedIn:
 https://www.linkedin.com/in/anwaar-bshara
