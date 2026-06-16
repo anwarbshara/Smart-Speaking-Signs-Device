@@ -13,6 +13,9 @@ Real-Time Sign Language to Speech & Text Conversion
 <img src="https://img.shields.io/badge/BLE-Wireless-green?style=for-the-badge"/>
 <img src="https://img.shields.io/badge/Firebase-Database-orange?style=for-the-badge"/>
 </p>
+<p align="center">
+An intelligent wearable glove for translating sign language into real-time speech and text communication.
+</p>
 
 ---
 
@@ -200,9 +203,10 @@ The project gained attention for improving communication accessibility for deaf 
 <h3 align="center">📱 Mobile Application</h3>
 
 <p align="center">
-  <img src="Images/Mobile_App_1.png" width="300"/>
-  <img src="Images/Mobile_App_2.png" width="300"/>
-</p>
+  <img src="Images/Mobile_App_1.png" width="350"/>
+  <img src="Images/Mobile_App_2.png" width="350"/>
+  <img src="Images/Mobile_App_3.png" width="300"/>
+  </p>
 
 ---
 
@@ -228,7 +232,7 @@ The project gained attention for improving communication accessibility for deaf 
 
 ---
 
-🎥 Demo Video
+## 🎥 Demo Video
 
 <p align="center">
 Watch the Smart Speaking Signs Device demonstration video
@@ -297,7 +301,7 @@ Smart-Speaking-Signs-Device
 
 ---
 
-👩‍💻 Author
+## 👩‍💻 Author
 
 <p align="center">
 <b>Anwar Bshara</b><br>
@@ -310,12 +314,12 @@ anwarbshara2002@gmail.com
 <p align="center">
 💼 <b>LinkedIn:</b><br>
 <a href="https://www.linkedin.com/in/anwaar-bshara">
-LinkedIn Profile
+View LinkedIn Profile
 </a>
 </p>
 <p align="center">
 💻 <b>GitHub:</b><br>
 <a href="https://github.com/anwarbshara">
-GitHub Profile
+View GitHub Profile
 </a>
 </p>
