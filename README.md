@@ -1,7 +1,7 @@
 # 🧤 Smart Speaking Signs Device
 
 <p align="center">
-  <img src="Images/Project_Image.jpeg" width="600"/>
+  <img src="Images/Project_Image.jpeg" width="400"/>
 </p>
 
 <h3 align="center">
