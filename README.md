@@ -1,224 +1,262 @@
-# Smart Speaking Signs Device
+# 🧤 Smart Speaking Signs Device
 
-An intelligent wearable glove designed to translate sign language into readable text and audible speech in real time, helping deaf and mute individuals communicate more effectively, especially in healthcare environments.
+<p align="center">
+  <img src="Images/Project_Image.jpeg" width="600"/>
+</p>
 
-## Project Overview
-
-The Smart Speaking Signs Device is a graduation project developed to bridge communication barriers between deaf/mute individuals and society. The system uses a smart glove equipped with sensors to recognize hand gestures and convert them into speech and text instantly.
-
-The glove captures finger movements and hand orientation using Flex Sensors and MPU6050, processes the gesture using ESP32, and sends the data wirelessly through Bluetooth Low Energy (BLE) to a Flutter mobile application, where the recognized sign is displayed as text and converted into speech using Text-to-Speech technology.
-
-This project was developed with a focus on:
-- Real-time communication
-- Ease of use
-- Low-cost implementation
-- Accessibility support
-- Healthcare environments
-
-
-## Features
-
-- Real-time sign language recognition  
-- Instant speech output using Text-to-Speech (TTS)  
-- Real-time text display through a mobile application  
-- Wireless communication using Bluetooth Low Energy (BLE)  
-- Lightweight and wearable smart glove design  
-- User-friendly Flutter mobile application  
-- Support for healthcare communication scenarios  
-- Low-cost assistive technology solution  
+<h3 align="center">
+Real-Time Sign Language to Speech & Text Conversion
+</h3>
 
 ---
 
-## Technologies Used
+## 📌 Project Overview
 
-### Hardware
-- ESP32
-- Flex Sensors (5)
-- MPU6050 Motion Sensor
-- Bluetooth Low Energy (BLE)
+The **Smart Speaking Signs Device** is an intelligent wearable glove designed to translate sign language into **readable text and audible speech in real time**, helping deaf and mute individuals communicate more effectively, especially in healthcare environments.
 
-### Software
-- Flutter
-- Firebase
-- Arduino IDE (ESP32 Programming)
-- C++ (ESP32 Programming)
-- Text-to-Speech (TTS)
+This graduation project was developed to bridge communication barriers between deaf and mute individuals and society through smart assistive technology.
 
----
+The glove captures finger movements and hand orientation using **Flex Sensors** and **MPU6050**, processes gestures using **ESP32**, and transmits data wirelessly via **Bluetooth Low Energy (BLE)** to a Flutter mobile application.
 
-## Hardware & Software Components
+The mobile application then:
 
-| Component | Purpose |
-|------------|----------|
-| ESP32 | Main microcontroller for processing data |
-| Flex Sensors | Detect finger bending movements |
-| MPU6050 | Detect hand motion and orientation |
-| BLE | Wireless communication |
-| Flutter App | Display translated text and speech |
-| Firebase | Store and manage data |
-| TTS | Convert text into voice | 
+* 📝 Displays the recognized sign as text
+* 🔊 Converts text into speech using **Text-to-Speech (TTS)**
+
+The project was developed with a focus on:
+
+* ⚡ Real-time communication
+* 💰 Low-cost implementation
+* 🧤 Ease of use
+* ♿ Accessibility support
+* 🏥 Healthcare environments
 
 ---
 
- ## How the System Works
+## ✨ Features
+
+* ⚡ Real-time sign language recognition
+* 🔊 Instant speech output using Text-to-Speech (TTS)
+* 📝 Real-time text display through mobile application
+* 📡 Wireless communication using Bluetooth Low Energy (BLE)
+* 🧤 Lightweight and wearable smart glove design
+* 📱 User-friendly Flutter mobile application
+* 🏥 Support for healthcare communication scenarios
+* 💡 Low-cost assistive technology solution
+
+---
+
+## ⚙️ Technologies Used
+
+### 🔌 Hardware
+
+* ESP32
+* Flex Sensors (x5)
+* MPU6050 Motion Sensor
+* Bluetooth Low Energy (BLE)
+
+### 💻 Software
+
+* Flutter
+* Firebase
+* Arduino IDE (ESP32 Programming)
+* C++ (ESP32 Programming)
+* Text-to-Speech (TTS)
+
+---
+
+## 🔧 Hardware & Software Components
+
+| Component    | Purpose                                  |
+| ------------ | ---------------------------------------- |
+| ESP32        | Main microcontroller for processing data |
+| Flex Sensors | Detect finger bending movements          |
+| MPU6050      | Detect hand motion and orientation       |
+| BLE          | Wireless communication                   |
+| Flutter App  | Display translated text and speech       |
+| Firebase     | Store and manage data                    |
+| TTS          | Convert text into voice                  |
+
+---
+
+## 🧠 How the System Works
 
 The system works through the following process:
 
 1. The user performs a hand gesture using the smart glove.
 2. Flex Sensors detect finger bending movements.
 3. MPU6050 detects hand motion and orientation.
-4. ESP32 processes the sensor readings and identifies the gesture.
-5. The recognized sign is transmitted wirelessly through BLE.
+4. ESP32 processes sensor readings and identifies gestures.
+5. The recognized sign is transmitted wirelessly via BLE.
 6. The Flutter mobile application receives the data.
 7. The gesture is displayed as readable text.
 8. Text-to-Speech converts the text into audible speech.
 
 ---
 
-## System Workflow
+## 📊 System Workflow
 
-Sign Language Gesture  
-        ↓ 
-Flex Sensors + MPU6050  
-        ↓  
-ESP32 Processing  
-        ↓  
-Bluetooth Low Energy (BLE)  
-        ↓  
-Flutter Mobile Application  
-        ↓  
+```text
+Sign Language Gesture
+        ↓
+Flex Sensors + MPU6050
+        ↓
+ESP32 Processing
+        ↓
+Bluetooth Low Energy (BLE)
+        ↓
+Flutter Mobile Application
+        ↓
 Text Display + Speech Output
+```
 
+### 📈 Flowcharts
 
-### Flowchart Pictures:
-     - Mobile App Flowchart:
-     
-![System Flowchart](System_Flowchart/App_Flowchart.png)
+#### Mobile Application Flowchart
 
+<p align="center">
+  <img src="System_Flowchart/App_Flowchart.png" width="700"/>
+</p>
 
-      - Microcontroller(ESP32) Flowchart:
+#### ESP32 Microcontroller Flowchart
 
-![System Flowchart](System_Flowchart/Microcontroller_ESP32_Flowchart.png)
+<p align="center">
+  <img src="System_Flowchart/Microcontroller_ESP32_Flowchart.png" width="700"/>
+</p>
 
 ---
 
-## System Architecture
+## 🏗 System Architecture
 
 The system consists of three main layers:
 
-### 1. Hardware Layer
+### 1️⃣ Hardware Layer
+
 Responsible for gesture sensing and motion detection using:
-- Flex Sensors
-- MPU6050
-- ESP32
 
-### 2. Communication Layer
+* Flex Sensors
+* MPU6050
+* ESP32
+
+### 2️⃣ Communication Layer
+
 Responsible for real-time wireless data transmission using:
-- Bluetooth Low Energy (BLE)
 
-### 3. Application Layer
+* Bluetooth Low Energy (BLE)
+
+### 3️⃣ Application Layer
+
 Responsible for:
-- Displaying translated text
-- Generating speech output
-- Managing communication through Flutter and Firebase
+
+* Displaying translated text
+* Generating speech output
+* Managing communication through Flutter & Firebase
 
 ---
 
-## Project Results
+## 📊 Project Results
 
-- Successfully implemented more than **40 hand gestures**
-- Achieved approximately **87% recognition accuracy**
-- Real-time speech and text conversion
-- Successfully tested for healthcare communication scenarios
-
----
-
-## Project Impact
-
-The Smart Speaking Signs Device aimed to improve accessibility and communication for deaf and mute individuals, especially in healthcare environments.
-
-The project gained public recognition and media attention due to its social impact and innovative approach to assistive technology.
-
-It was presented in interviews, media platforms, and public showcases, highlighting the importance of inclusive technological solutions.
+* ✅ Successfully implemented **40+ hand gestures**
+* ✅ Achieved approximately **87% recognition accuracy**
+* ✅ Real-time speech and text conversion
+* ✅ Successfully tested in healthcare communication scenarios
 
 ---
 
-## Media Recognition
+## 🌍 Media Recognition
 
-The project received significant public attention and recognition due to its social and technological impact.
+The project received significant public recognition due to its **social impact** and innovative contribution to assistive technology.
 
 It was featured across:
 
-- Social media platforms
-- TV channels
-- Radio stations
-- News interviews
-- University events and exhibitions
+* 📱 Social media platforms
+* 📺 TV channels
+* 🎙 Radio stations
+* 📰 News interviews
+* 🎓 University exhibitions and events
 
-The project attracted attention for supporting communication for deaf and mute individuals and improving accessibility through assistive technology.
-
----
-
-## Project Screenshots
-
-### Smart Glove :
-![Smart Glove](Images/Glove.png)      ![Smart Glove](Images/Project_Image.jpeg)
-![Smart Glove](Images/Project_Image_2.png)
-
-
-### Mobile Application :
-![Mobile App](Images/Mobile_App_1.png)
-![Mobile App](Images/Mobile_App_2.png)
-
-
-### Hardware Components :
-![Hardware](Images/Hardware_Components.png)
-
-
-### Poster :
-![Poster](Poster/POSTER.png)
-
-
-Click Here To Download Project Poster:
-[Click Here To Download Project Poster](Poster/POSTER_SSSD.pdf)
-
+The project gained attention for improving communication accessibility for deaf and mute individuals.
 
 ---
 
-## Demo Video
+# 📸 Project Gallery
 
-🎥 Watch the Smart Speaking Signs Device demonstration here:
-[Click Here to Watch the Demo](https://drive.google.com/file/d/1fMt22c8ajauHyEJ4nHGmc-IGWgudZfpw/view?usp=drive_link)
+<h3 align="center">🧤 Smart Glove</h3>
+
+<p align="center">
+  <img src="Images/Glove.png" width="250"/>
+  <img src="Images/Project_Image.jpeg" width="250"/>
+  <img src="Images/Project_Image_2.png" width="250"/>
+</p>
 
 ---
 
-## Challenges Faced
+<h3 align="center">📱 Mobile Application</h3>
+
+<p align="center">
+  <img src="Images/Mobile_App_1.png" width="230"/>
+  <img src="Images/Mobile_App_2.png" width="230"/>
+</p>
+
+---
+
+<h3 align="center">🔧 Hardware Components</h3>
+
+<p align="center">
+  <img src="Images/Hardware_Components.png" width="500"/>
+</p>
+
+---
+
+<h3 align="center">📌 Project Poster</h3>
+
+<p align="center">
+  <img src="Poster/POSTER.png" width="550"/>
+</p>
+
+<p align="center">
+  📄 <a href="Poster/POSTER_SSSD.pdf">Download Project Poster</a>
+</p>
+
+---
+
+## 🎥 Demo Video
+
+<p align="center">
+  <a href="https://drive.google.com/file/d/1fMt22c8ajauHyEJ4nHGmc-IGWgudZfpw/view">
+    <img src="https://img.shields.io/badge/Watch-Demo-blue?style=for-the-badge"/>
+  </a>
+</p>
+
+---
+
+## ⚠️ Challenges Faced
 
 During development, several challenges were encountered:
 
-- Sensor calibration accuracy
-- Gesture recognition consistency
-- Real-time BLE communication
-- Hardware integration and optimization
+* Sensor calibration accuracy
+* Gesture recognition consistency
+* Real-time BLE communication reliability
+* Hardware integration and optimization
 
-These challenges were addressed through testing, calibration, and iterative improvements.
+These challenges were solved through testing, calibration, and iterative improvements.
 
 ---
 
-## Future Improvements
+## 🚀 Future Improvements
 
 Potential future enhancements include:
 
-- Adding Artificial Intelligence (AI) for smarter gesture recognition
-- Supporting more sign language gestures
-- Multi-language support
-- Cloud synchronization
-- Higher recognition accuracy
-- Integration with healthcare systems
+* 🤖 Artificial Intelligence (AI) for smarter gesture recognition
+* 🧤 Support for more sign language gestures
+* 🌍 Multi-language support
+* ☁️ Cloud synchronization
+* 📈 Higher recognition accuracy
+* 🏥 Integration with healthcare systems
 
 ---
 
-## Repository Structure
+## 📂 Repository Structure
 
 ```text
 Smart-Speaking-Signs-Device
@@ -231,16 +269,26 @@ Smart-Speaking-Signs-Device
 │── Media_Coverage
 │── README.md
 ```
+
 ---
-## Author
 
-**Anwar Bshara**  
-Computer Systems Engineer  
+## 👩‍💻 Author
 
-📧 Email: anwarbshara2002@gmail.com  
+**Anwar Bshara**
+Computer Systems Engineer
 
-💼 LinkedIn: [LinkedIn Profile](https://www.linkedin.com/in/anwaar-bshara)
+📧 Email: [anwarbshara2002@gmail.com](mailto:anwarbshara2002@gmail.com)
 
-💻 GitHub: [GitHub Profile](https://github.com/anwarbshara)
+💼 LinkedIn:
+https://www.linkedin.com/in/anwaar-bshara
 
+💻 GitHub:
+https://github.com/anwarbshara
 
+---
+
+<div align="center">
+
+⭐ If you found this project interesting, consider giving it a star on GitHub!
+
+</div>
