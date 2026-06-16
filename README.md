@@ -225,7 +225,7 @@ The project gained attention for improving communication accessibility for deaf 
 ## 🎥 Demo Video
 
 <p align="center">
-  <img src="Images/Project_Image_2.jpeg" width="400"/>
+  <img src="Images/Project_Image_2.png" width="500"/>
 </p>
 
 <p align="center">
