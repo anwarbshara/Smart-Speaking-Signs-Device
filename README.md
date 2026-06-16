@@ -194,8 +194,8 @@ The project gained attention for improving communication accessibility for deaf 
 <h3 align="center">📱 Mobile Application</h3>
 
 <p align="center">
-  <img src="Images/Mobile_App_1.png" width="280"/>
-  <img src="Images/Mobile_App_2.png" width="280"/>
+  <img src="Images/Mobile_App_1.png" width="300"/>
+  <img src="Images/Mobile_App_2.png" width="300"/>
 </p>
 
 ---
@@ -203,7 +203,7 @@ The project gained attention for improving communication accessibility for deaf 
 <h3 align="center">🔧 Hardware Components</h3>
 
 <p align="center">
-  <img src="Images/Hardware_Components.png" width="600"/>
+  <img src="Images/Hardware_Components.png" width="500"/>
 </p>
 
 ---
