@@ -215,14 +215,16 @@ The project attracted considerable attention for improving communication accessi
 
 #### 🎙 Radio Interviews
 
-* Ajyal Radio:
+* AAUP Radio:
   https://www.facebook.com/share/v/14fqqbX1khG/?mibextid=wwXIfr
 
 #### 📰 News Articles
 
 * Al-Haya Newspaper:
   https://www.alhaya.ps/ar/Article/173949
+  
 #### 📱 Social Media
+
 * Ramallah News:
   https://ramallah.news/p/250867
 
