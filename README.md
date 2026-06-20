@@ -189,18 +189,18 @@ The project attracted considerable attention for improving communication accessi
 ### 📸 Media Highlights
 
 <p align="center">
-  <img src="Media_Coverage/رام_الله_الاخباري_1.png" width="300"/>
-  <img src="Media_Coverage/رام_الله_الاخباري_2.png" width="300"/>
+  <img src="Media_Coverage/رام_الله_الاخباري_1.png" height="400" width="300"/>
+  <img src="Media_Coverage/رام_الله_الاخباري_2.png" height="400" width="300"/>
 </p>
 
 <p align="center">
-  <img src="Media_Coverage/AAUP.png" width="300"/>
-  <img src="Media_Coverage/تلفزيون_الفجر.png" width="300"/>
+  <img src="Media_Coverage/AAUP.png" height="400" width="300"/>
+  <img src="Media_Coverage/تلفزيون_الفجر.png" height="400" width="300"/>
 </p>
 
 <p align="center">
-  <img src="Media_Coverage/راديو_اجيال.png" width="300"/>
-  <img src="Media_Coverage/صوت_فلسطين.png" width="300"/>
+  <img src="Media_Coverage/راديو_اجيال.png" height="400" width="300"/>
+  <img src="Media_Coverage/صوت_فلسطين.png" height="400" width="300"/>
 </p>
 
 ### 🔗 Interviews & Media Coverage Links
