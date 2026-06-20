@@ -203,9 +203,9 @@ The project gained attention for improving communication accessibility for deaf 
 <h3 align="center">📱 Mobile Application</h3>
 
 <p align="center">
-  <img src="Images/Mobile_App_1.png" height="200" width="350"/>
-  <img src="Images/Mobile_App_2.png" height="200" width="350"/>
-  <img src="Images/Mobile_App_3.png" height="200" width="115"/>
+  <img src="Images/Mobile_App_1.png" height="300" width="350"/>
+  <img src="Images/Mobile_App_2.png" height="300" width="350"/>
+  <img src="Images/Mobile_App_3.png" height="300" width="115"/>
   </p>
 
 ---
