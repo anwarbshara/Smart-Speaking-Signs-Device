@@ -172,19 +172,70 @@ Responsible for:
 
 ---
 
-## 🌍 Media Recognition
+## 🌍 Media Coverage & Public Recognition
 
-The project received significant public recognition due to its **social impact** and innovative contribution to assistive technology.
+The project received significant public recognition due to its **social impact**, **humanitarian value**, and innovative contribution to assistive technology.
 
 It was featured across:
 
-* 📱 Social media platforms
-* 📺 TV channels
-* 🎙 Radio stations
-* 📰 News interviews
-* 🎓 University exhibitions and events
+* 📱 Social Media Platforms
+* 📺 Television Channels
+* 🎙 Radio Interviews
+* 📰 Newspapers and Online News Articles
+* 🎓 University Exhibitions and Technology Events
 
-The project gained attention for improving communication accessibility for deaf and mute individuals.
+The project attracted considerable attention for improving communication accessibility for deaf and mute individuals and promoting inclusive technology solutions.
+
+### 📸 Media Highlights
+
+<p align="center">
+  <img src="Media_Coverage/رام_الله_الاخباري_1.png" width="300"/>
+  <img src="Media_Coverage/رام_الله_الاخباري_2.png" width="300"/>
+</p>
+
+<p align="center">
+  <img src="Media_Coverage/AAUP.png" width="300"/>
+  <img src="Media_Coverage/تلفزيون_الفجر.png" width="300"/>
+</p>
+
+<p align="center">
+  <img src="Media_Coverage/راديو_اجيال.png" width="300"/>
+  <img src="Media_Coverage/صوت_فلسطين.png" width="300"/>
+</p>
+
+### 🔗 Interviews & Media Coverage Links
+
+#### 📺 Television Interviews
+
+* Palestine TV:
+  https://www.facebook.com/share/v/1AdJ3YVaeu/?mibextid=wwXIfr
+
+* Al-Fajer TV:
+  https://www.facebook.com/share/v/1Geeht563Y/?mibextid=wwXIfr
+
+#### 🎙 Radio Interviews
+
+* Ajyal Radio:
+  https://www.facebook.com/share/v/14fqqbX1khG/?mibextid=wwXIfr
+
+#### 📰 News Articles
+
+* Al-Haya Newspaper:
+  https://www.alhaya.ps/ar/Article/173949
+#### 📱 Social Media
+* Ramallah News:
+  https://ramallah.news/p/250867
+
+### 🏆 Recognition Impact
+
+The project was recognized for:
+
+* Supporting communication for deaf and mute individuals.
+* Providing an affordable assistive technology solution.
+* Promoting accessibility and social inclusion through technology.
+* Demonstrating practical applications of embedded systems and mobile development.
+* Addressing communication challenges in healthcare environments.
+* Showcasing innovation and community impact through engineering solutions.
 
 ---
 
